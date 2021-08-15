@@ -1,1 +1,48 @@
-custom: raphayel
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - env
+          - refresh
+          - bus-refresh
+          - bus-env
+          - configprops
+  endpoint:
+    env:
+      enabled: true
+    refresh:
+      enabled: true
+    busenv:
+      enabled: true
+    busrefresh:
+      enabled: true
+    configprops:
+      enabled: true
+server:
+  port: 2196
+
+spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+  application:
+    name: my-config-client
+  cloud:
+    refresh:
+      enabled: true
+    bus:
+      ack:
+        enabled: true
+      content-type: application/json; charset=utf-8
+      destination: my-custom-destination
+      enabled: true
+      env:
+        enabled: true
+      id: ${spring.application.name}:${server.port}:${random.value}
+      refresh:
+        enabled: true
+      trace:
+        enabled: true
